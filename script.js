@@ -124,11 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function getScoringPhaseHTML(team1Name, team2Name) {
         const round = gameState.currentRound;
         const biddingTeamName = round.biddingTeam === '1' ? team1Name : team2Name;
+        
+        // Create the dropdown options for opponent's score
+        let scoreOptions = '';
+        for (let i = 0; i <= 165; i += 5) {
+            const isSelected = (i === 65) ? 'selected' : ''; // Default to 65
+            scoreOptions += `<option value="${i}" ${isSelected}>${i}</option>`;
+        }
+
         return `
             <div id="round-status"><strong>Round in Progress:</strong> ${biddingTeamName} has bid <strong>${round.bidAmount}</strong>.</div>
             <div id="score-phase">
                 <h3>2. Enter Score</h3>
-                <div class="form-group"><label for="opponent-score">Opponent's Score (0-165):</label><input type="number" id="opponent-score" min="0" max="165" step="5" value="65"></div>
+                <div class="form-group">
+                    <label for="opponent-score">Opponent's Score:</label>
+                    <select id="opponent-score">${scoreOptions}</select>
+                </div>
                 <div class="button-group">
                     <button id="finish-round-btn">Finish Round</button><button id="cancel-score-btn" class="cancel">Cancel Round</button>
                 </div>
@@ -218,4 +229,5 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Initial Load ---
     loadState();
+
 });
