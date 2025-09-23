@@ -1,0 +1,16 @@
+{
+  "name": "Shelem Scorekeeper",
+  "short_name": "Shelem",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1f2833",
+  "theme_color": "#2c3e50",
+  "description": "A simple scorekeeper for the card game Shelem.",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
