@@ -12,17 +12,26 @@
     <div id="new-game-modal" class="modal-overlay hidden">
         <div class="modal-content">
             <h2>Start a New Game</h2>
-            <p>Set the winning score and team names to begin. This will erase any current game progress.</p>
-            
+            <p>Set the game options and team names to begin. This will erase any current game progress.</p>
             <div class="modal-form">
-                <div class="form-group">
-                    <label for="winning-score">Winning Score:</label>
-                    <select id="winning-score">
-                        <option value="665">665</option>
-                        <option value="1165">1165</option>
-                    </select>
+                <div class="game-options">
+                    <div class="form-group">
+                        <label for="winning-score">Winning Score:</label>
+                        <select id="winning-score">
+                            <option value="665">665</option>
+                            <option value="800">800</option>
+                            <option value="1165">1165</option>
+                            <option value="1400">1400</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Game Mode:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="game-mode" value="no-joker" checked> Without Joker</label>
+                            <label><input type="radio" name="game-mode" value="joker"> With Joker</label>
+                        </div>
+                    </div>
                 </div>
-
                 <div class="team-setup">
                     <div class="form-group">
                         <label>Team 1 Players</label>
@@ -36,17 +45,25 @@
                     </div>
                 </div>
             </div>
-
             <button id="confirm-new-game-btn">Start Game</button>
             <button id="cancel-new-game-btn" class="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <div id="winner-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="winner-message">Team Wins!</h2>
+            <p>🎉 Congratulations! 🎉</p>
+            <button id="close-winner-modal-btn">Play Again</button>
         </div>
     </div>
 
     <div class="container">
         <div class="header">
             <h1>Shelem Scorekeeper 🃏</h1>
-            <div class="game-goal">Winning Score: <span id="winning-score-display">N/A</span></div>
+            <button id="reset-game-btn" class="danger header-btn">New Game</button>
         </div>
+        <div class="game-goal">Winning Score: <span id="winning-score-display">N/A</span></div>
 
         <div class="teams-container">
             <div class="team-panel" id="team1-panel">
@@ -57,7 +74,6 @@
                 </div>
                 <div class="total-score" id="team1-total-score">0</div>
             </div>
-
             <div class="team-panel" id="team2-panel">
                 <h2 id="team2-name-display">Team 2</h2>
                 <div class="player-names">
@@ -71,15 +87,16 @@
         <div class="controls-panel">
             <div class="main-buttons">
                 <button id="new-round-btn">Start New Round</button>
-                <button id="reset-game-btn" class="danger">New Game</button>
             </div>
-            
             <div id="round-controls">
                 </div>
         </div>
 
         <div class="history-panel">
-            <h2>Round History</h2>
+            <div class="history-header">
+                <h2>Round History</h2>
+                <button id="undo-btn" class="secondary" disabled>Undo Last</button>
+            </div>
             <ul id="history-list">
                 <li>Start a new game to begin.</li>
             </ul>
