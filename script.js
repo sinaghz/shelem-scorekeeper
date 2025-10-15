@@ -150,10 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let threshold;
         switch(gameState.winningScore) {
-            case 665: threshold = 550; break;
-            case 800: threshold = 685; break;
+            case 665: threshold = 600; break;
+            case 800: threshold = 700; break;
             case 1165: threshold = 1000; break;
-            case 1400: threshold = 1285; break;
+            case 1400: threshold = 1200; break;
             default: threshold = gameState.winningScore;
         }
 
@@ -236,4 +236,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     loadState();
+
 });
