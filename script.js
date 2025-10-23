@@ -142,7 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let biddingTeamScoreChange = (biddingTeamPoints < bidAmount) ? -bidAmount : bidAmount;
         let opponentTeamScoreChange = opponentScore;
         
-        if (biddingTeamScoreChange < 0 && opponentScore >= 85) { biddingTeamScoreChange *= 2; }
+        const doubleNegativeThreshold = gameState.gameMode === 'joker' ? 105 : 85; 
+        if (biddingTeamScoreChange < 0 && opponentScore >= doubleNegativeThreshold) { biddingTeamScoreChange *= 2; }
         if (biddingTeamScoreChange > 0 && biddingTeamPoints === totalHandScore) { biddingTeamScoreChange *= 2; }
 
         let team1Change = (biddingTeam === '1') ? biddingTeamScoreChange : opponentTeamScoreChange;
