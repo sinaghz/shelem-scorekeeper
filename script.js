@@ -159,8 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const didBidderSucceed = biddingTeamScoreChange > 0;
-        if (gameState.team1Score >= threshold && !((biddingTeam === '1' && didBidderSucceed) || (biddingTeam === '2' && !didBidderSucceed))) { team1Change = 0; }
-        if (gameState.team2Score >= threshold && !((biddingTeam === '2' && didBidderSucceed) || (biddingTeam === '1' && !didBidderSucceed))) { team2Change = 0; }
+        if (gameState.team1Score >= threshold && biddingTeam === '2' && didBidderSucceed ) { team1Change = 0; }
+        if (gameState.team2Score >= threshold && biddingTeam === '1' && didBidderSucceed ) { team2Change = 0; }
+
 
         gameState.team1Score += team1Change;
         gameState.team2Score += team2Change;
