@@ -89,8 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function getBiddingPhaseHTML(team1Name, team2Name) {
         const bidStart = gameState.gameMode === 'joker' ? 120 : 100;
         const bidEnd = gameState.gameMode === 'joker' ? 200 : 165;
+        const sarShelem = gameState.gameMode === 'joker' ? 400 : 330;
         let options = '';
         for (let i = bidStart; i <= bidEnd; i += 5) { options += `<option value="${i}">${i}</option>`; }
+        options += `<option value="${sarShelem}">Sar Shelem</option>`;
         return `<div id="bid-phase"><h3>1. Set the Bid</h3><div class="form-group"><label>Bidding Team (Hakem):</label><div class="radio-group"><label><input type="radio" name="bidding-team" value="1" checked> ${team1Name}</label> <label><input type="radio" name="bidding-team" value="2"> ${team2Name}</label></div></div><div class="form-group"><label for="bid-amount">Bid Amount:</label><select id="bid-amount">${options}</select></div><div class="button-group"><button id="confirm-bid-btn">Confirm Bid</button><button id="cancel-bid-btn" class="cancel">Cancel Round</button></div></div>`;
     }
 
@@ -138,14 +140,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (opponentScore > totalHandScore) { alert(`Opponent score cannot be more than ${totalHandScore}.`); return; }
 
         const { biddingTeam, bidAmount } = gameState.currentRound;
+        // console.log("biddingTeam", biddingTeam, "bidAmount",bidAmount);
         const biddingTeamPoints = totalHandScore - opponentScore;
         let biddingTeamScoreChange = (biddingTeamPoints < bidAmount) ? -bidAmount : bidAmount;
+
+        // check for sar shelem
+        if (bidAmount > totalHandScore && biddingTeamPoints === totalHandScore ) {
+            biddingTeamScoreChange = bidAmount;
+        }
+        // console.log("bidAmount",bidAmount, biddingTeamScoreChange);
         let opponentTeamScoreChange = opponentScore;
         
         const doubleNegativeThreshold = gameState.gameMode === 'joker' ? 105 : 85; 
+        // check double negative
         if (biddingTeamScoreChange < 0 && opponentScore >= doubleNegativeThreshold) { biddingTeamScoreChange *= 2; }
         if (biddingTeamScoreChange > 0 && biddingTeamPoints === totalHandScore) { biddingTeamScoreChange *= 2; }
-
+        // if (biddingTeamScoreChange < 0 && bidAmount >= totalHandScore) { biddingTeamScoreChange*= 2;}
         let team1Change = (biddingTeam === '1') ? biddingTeamScoreChange : opponentTeamScoreChange;
         let team2Change = (biddingTeam === '2') ? biddingTeamScoreChange : opponentTeamScoreChange;
 
